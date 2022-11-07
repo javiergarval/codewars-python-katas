@@ -38,38 +38,83 @@ def categorize_ship():
 def find_ship(row, column, field):
     global counter
 
-    field[row][column] = 2
+    if check_diagonally(row, column, field):
+        return False
 
-    counter = 0
-    for i in range(0, 4):
-        if continues_horizontally(row, column + i, field):
-            counter += 1
-            field[row][column + i] = 2
-            if continues_vertically(row + 1, column + i, field):
-                return False
+    counter = 1
 
-        if continues_vertically(row + i, column, field):
-            counter += 1
-            field[row + i][column] = 2
-            if continues_horizontally(row + i, column + 1, field):
+    if check_horizontally(row, column + 1, field):
+        for i in range(1, 4):
+            if not check_horizontally(row, column + i, field):
+                break
+            if check_vertically(row + 1, column + i, field):
                 return False
+            if check_diagonally(row, column + i, field):
+                return False
+            counter += 1
+            mark_point_as_visited(row, column + i, field)
+
+    if check_vertically(row + 1, column, field):
+        for i in range(1, 4):
+            if not check_vertically(row + i, column, field):
+                break
+            if check_horizontally(row + i, column + 1, field):
+                return False
+            if check_diagonally(row + i, column, field):
+                return False
+            counter += 1
+            mark_point_as_visited(row + i, column, field)
 
     if not categorize_ship():
         return False
 
-    counter = 0
     return True
 
 
-def continues_horizontally(row, column, field):
-    return column < 10 and field[row][column] == 1
+def mark_point_as_visited(row, column, field):
+    field[row][column] = 2
 
 
-def continues_vertically(row, column, field):
-    return row < 10 and field[row][column] == 1
+def check_diagonally(row, column, field):
+    if not (0 <= row < 10) and not (0 <= column < 10):
+        return False
+
+    if 0 <= row - 1 < 10 and 0 <= column - 1 < 10 and field[row - 1][column - 1] == 1:
+        return True
+
+    if 0 <= row + 1 < 10 and 0 <= column - 1 < 10 and field[row + 1][column - 1] == 1:
+        return True
+
+    if 0 <= row - 1 < 10 and 0 <= column + 1 < 10 and field[row - 1][column + 1] == 1:
+        return True
+
+    if 0 <= row + 1 < 10 and 0 <= column + 1 < 10 and field[row + 1][column + 1] == 1:
+        return True
+
+    return False
+
+
+def check_horizontally(row, column, field):
+    return 0 <= column < 10 and field[row][column] == 1
+
+
+def check_vertically(row, column, field):
+    return 0 <= row < 10 and field[row][column] == 1
 
 
 def validate_battlefield(field):
+    global battleship_count
+    global cruiser_count
+    global destroyer_count
+    global submarine_count
+    global counter
+
+    battleship_count = 0
+    cruiser_count = 0
+    destroyer_count = 0
+    submarine_count = 0
+    counter = 0
+
     if not len(field) == 10 and not len(field[0]) == 10:
         return False
 
