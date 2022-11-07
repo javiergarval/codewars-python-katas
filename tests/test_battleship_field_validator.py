@@ -30,6 +30,32 @@ class Test(unittest.TestCase):
                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
         self.assertFalse(validate_battlefield(battle_field))
 
+    def test_should_be_false_when_there_are_more_than_3_destroyers(self):
+        battle_field = [[1, 0, 0, 0, 0, 1, 1, 0, 0, 0],
+                        [1, 0, 1, 0, 0, 0, 0, 0, 1, 0],
+                        [1, 0, 1, 0, 1, 1, 1, 0, 1, 0],
+                        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+                        [0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+                        [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+                        [0, 0, 0, 1, 1, 0, 0, 0, 0, 0]]
+        self.assertFalse(validate_battlefield(battle_field))
+
+    def test_should_be_false_when_there_are_more_than_2_cruisers(self):
+        battle_field = [[1, 0, 0, 0, 0, 1, 1, 0, 0, 0],
+                        [1, 0, 1, 0, 0, 0, 0, 0, 1, 0],
+                        [1, 0, 1, 0, 1, 1, 1, 0, 1, 0],
+                        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+                        [0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+                        [0, 1, 0, 0, 0, 0, 0, 0, 1, 0],
+                        [0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
+                        [0, 0, 0, 1, 1, 1, 0, 0, 0, 0]]
+        self.assertFalse(validate_battlefield(battle_field))
+
     def test_should_be_false_when_there_is_more_than_1_battleship(self):
         battle_field = [[1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                         [0, 0, 0, 0, 0, 0, 0, 0, 1, 1],
