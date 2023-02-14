@@ -1,7 +1,3 @@
-"""
-Kata: https://www.codewars.com/kata/52bb6539a4cf1b12d90005b7/train/python
-"""
-
 battleship_count = 0
 cruiser_count = 0
 destroyer_count = 0

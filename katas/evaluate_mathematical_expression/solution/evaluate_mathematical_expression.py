@@ -1,7 +1,3 @@
-"""
-Kata: https://www.codewars.com/kata/52a78825cdfc2cfc87000005/train/python
-"""
-
 MULTIPLY_OPERATOR = '*'
 DIVIDE_OPERATOR = '/'
 ADD_OPERATOR = '+'
